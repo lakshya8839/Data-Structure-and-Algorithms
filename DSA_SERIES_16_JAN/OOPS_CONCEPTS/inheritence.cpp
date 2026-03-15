@@ -17,18 +17,31 @@ class Human {
     }
 };
 
-class Male: public Human {
+class Male: private Human {
     public:
     string color;
 
     void sleep() {
         cout << "Male Sleeping" << endl;
     }
+
+    int getHeight() {
+        return this->height;
+    }
+
 };
 
 
 int main(){
 
+    Male m1;
+    cout << m1.getHeight() << endl;
+
+
+
+
+
+    /*
     Male object1;
     cout << object1.age << endl;
     cout << object1.weight << endl;
@@ -38,6 +51,7 @@ int main(){
     object1.setWeight(84);
     cout << object1.weight << endl;
     object1.sleep();
+    */
 
     return 0;
 }
