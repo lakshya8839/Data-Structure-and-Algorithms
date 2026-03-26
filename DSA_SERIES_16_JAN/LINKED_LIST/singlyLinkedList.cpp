@@ -1,4 +1,5 @@
 #include<iostream>
+#include<map>
 using namespace std;
 
 class Node {
@@ -112,6 +113,58 @@ void deleteNode(int position, Node* &head) {
     }
 
 }
+/*
+bool detectLoop(Node* head) {
+
+    if(head == NULL){
+        return false;
+    }
+
+    map<Node*, bool> visited;
+
+    Node* temp = head;
+
+    while(temp != NULL) {
+
+        //cycle is present
+        if(visited[temp] == true) {
+            return true;
+        }
+
+        visited[temp] = true;
+        temp = temp -> next;
+
+    }
+    return false;
+
+}
+*/
+Node* floydDetectLoop(Node* head) {
+
+    if(head == NULL)
+        return NULL;
+
+    Node* slow = head;
+    Node* fast = head;
+
+    while(slow != NULL && fast != NULL) {
+
+        fast = fast -> next;
+        if(fast != NULL) {
+            fast = fast -> next;
+        }
+
+        slow = slow -> next;
+
+        if(slow == fast) {
+            cout << "present at " << slow -> data << endl;
+            return slow;
+        }
+    }
+
+    return NULL;
+
+}
 
 int main() {
 
@@ -135,13 +188,25 @@ int main() {
 
     insertAtPosition(tail, head, 4, 22);
     //insertAtPosition(head, 3, 22);
-    print(head);
+    //print(head);
 
+    //cout << "head " << head -> data << endl;
+    //cout << "tail " << tail -> data << endl;
+
+    //deleteNode(4, head);
+
+    tail -> next = head -> next;
     cout << "head " << head -> data << endl;
     cout << "tail " << tail -> data << endl;
+    //print(head);
 
-    deleteNode(4, head);
-    print(head);
+    if(floydDetectLoop(head) != NULL) {
+        cout << "Cycle is present " << endl;
+    }
+    else
+    {
+        cout << "no cycle" << endl;
+    }
 
     return 0;
 }
